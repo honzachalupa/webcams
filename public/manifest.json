@@ -4,8 +4,8 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/?pwa=true",
-    "name": "Jan Chalupa portfolio",
-    "short_name": "Portfolio",
+    "name": "Webové kamery",
+    "short_name": "Webové kamery",
     "description": "",
     "icons": [
         {
