@@ -1,3 +1,3 @@
 export const config = {
-    appName: "Jan Chalupa portfolio",
+    appName: "Webové kamery",
 };
