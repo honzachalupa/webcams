@@ -1,9 +1,9 @@
 import cx from "classnames";
 // @ts-ignore
 import { config } from "../../config";
+import { ISource, sources } from "../data/sources";
 import { useSourcesUpdate } from "../hooks/useSourcesUpdate";
 import { LayoutPrimary as Layout } from "../layouts/Primary";
-import { ISource, sources } from "./index.data";
 
 const Source: React.FC<ISource> = ({
     location,
