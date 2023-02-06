@@ -1,9 +1,9 @@
 import cx from "classnames";
 import { useNavigate } from "react-router-dom";
-import { FlowPlayer } from "./../components/FlowPlayer";
-import { config } from "./../config";
-import { ISource, sources } from "./../data/sources";
-import { useSourcesUpdate } from "./../hooks/useSourcesUpdate";
+import { FlowPlayer } from "../components/FlowPlayer";
+import { config } from "../config";
+import { ISource, sources } from "../data/sources";
+import { useSourcesUpdate } from "../hooks/useSourcesUpdate";
 
 const Source: React.FC<ISource> = (source) => {
     const navigate = useNavigate();
