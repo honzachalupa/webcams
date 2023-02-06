@@ -5,18 +5,38 @@ import { useIsWindowFocused } from "./useIsWindowFocused";
 export const useSourcesUpdate = () => {
     const isWindowFocused = useIsWindowFocused();
 
-    const [updateKey, setUpdateKey] = useState<number>(0);
-    const [updatedAt, setUpdatedAt] = useState<Moment>();
+    const [state, setState] = useState<{
+        key: number;
+        timestamp: Moment;
+    }>({
+        key: 0,
+        timestamp: moment(),
+    });
+
+    const update = () => {
+        setState({
+            key: Math.random(),
+            timestamp: moment(),
+        });
+    };
+
+    useEffect(() => {
+        const minutes = 2;
+
+        const interval = setInterval(() => {
+            update();
+        }, minutes * 60 * 1000);
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, []);
 
     useEffect(() => {
         if (isWindowFocused) {
-            setUpdateKey(Math.random());
-            setUpdatedAt(moment());
+            update();
         }
     }, [isWindowFocused]);
 
-    return {
-        updateKey,
-        updatedAt,
-    };
+    return state;
 };
