@@ -1,17 +1,21 @@
+import moment from "moment";
+
 export interface ISource {
     id: number;
     location: string;
     view?: string;
     url: string;
-    type: "image" | "video" | "stream" | "iframe";
+    type: "image" | "video" | "iframe"; // "stream"
     isFeatured?: boolean;
 }
+
+const holidayInfoTimestamp = moment().format("YYYYMMDDHHmmss");
 
 export const sources: ISource[] = [
     {
         id: 1,
         location: "Panorama",
-        url: "https://www.holidayinfo.cz//hol3_data.php?type=camvideo&ext=mp4&camid=2127&cdt=20230206152144&dt=20230206151029",
+        url: `https://www.holidayinfo.cz//hol3_data.php?type=camvideo&ext=mp4&camid=2127&cdt=${holidayInfoTimestamp}&dt=${holidayInfoTimestamp}`,
         type: "video",
         isFeatured: true,
     },
