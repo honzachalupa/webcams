@@ -1,26 +1,21 @@
 import cx from "classnames";
-import { useRouter } from "next/router";
-import { config } from "../../config";
-import { JWPlayer } from "../components/JWPlayer";
-import { ISource, sources } from "../data/sources";
-import { useSourcesUpdate } from "../hooks/useSourcesUpdate";
+import { useNavigate } from "react-router-dom";
+import { FlowPlayer } from "./../components/FlowPlayer";
+import { config } from "./../config";
+import { ISource, sources } from "./../data/sources";
+import { useSourcesUpdate } from "./../hooks/useSourcesUpdate";
 
 const Source: React.FC<ISource> = (source) => {
-    const router = useRouter();
+    const navigate = useNavigate();
     const update = useSourcesUpdate();
 
     return (
         <article
-            className={cx({
+            className={cx("cursor-pointer", {
                 "mx-[-10px] basis-[calc(100%+20px)]": source.isFeatured,
                 "basis-[calc(50%-5px)]": !source.isFeatured,
             })}
-            onClick={() =>
-                router.push({
-                    pathname: "/detail",
-                    query: { sourceId: source.id },
-                })
-            }
+            onClick={() => navigate(`/detail/${source.id}`)}
         >
             <div className="flex h-full flex-col justify-between">
                 <p className="my-1 text-xs">
@@ -31,6 +26,7 @@ const Source: React.FC<ISource> = (source) => {
                 {source.type === "iframe" ? (
                     <iframe
                         key={update.key}
+                        title={source.location}
                         src={source.url}
                         className={cx("aspect-video w-full", {
                             "rounded-sm": !source.isFeatured,
@@ -47,7 +43,12 @@ const Source: React.FC<ISource> = (source) => {
                         muted
                     />
                 ) : source.type === "stream" ? (
-                    <JWPlayer url={source.url} />
+                    <FlowPlayer
+                        url={source.url}
+                        className={cx("aspect-video w-full", {
+                            "rounded-sm": !source.isFeatured,
+                        })}
+                    />
                 ) : source.type === "image" ? (
                     <img
                         key={update.key}
@@ -63,7 +64,7 @@ const Source: React.FC<ISource> = (source) => {
     );
 };
 
-export default function Index() {
+export const IndexPage: React.FC = () => {
     const update = useSourcesUpdate();
 
     return (
@@ -81,4 +82,4 @@ export default function Index() {
             </section>
         </>
     );
-}
+};

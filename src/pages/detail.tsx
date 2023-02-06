@@ -1,29 +1,29 @@
-import { NextRouter, useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { FlowPlayer } from "../components/FlowPlayer";
 import { ISource, sources } from "../data/sources";
 import { useSourcesUpdate } from "../hooks/useSourcesUpdate";
 
-export default function Detail() {
-    const router = useRouter() as NextRouter & { query: { sourceId: string } };
+export const DetailPage: React.FC = () => {
+    const navigate = useNavigate();
+    const { sourceId } = useParams<{ sourceId: string }>();
     const update = useSourcesUpdate();
 
     const [source, setSource] = useState<ISource>();
 
     const handleGoBack = () => {
-        router.push("/");
+        navigate("/");
     };
 
     useEffect(() => {
-        const source = sources.find(
-            ({ id }) => id === Number(router.query.sourceId)
-        );
+        const source = sources.find(({ id }) => id === Number(sourceId));
 
         if (!source) {
-            router.replace("/");
+            navigate("/");
         }
 
         setSource(source);
-    }, [router]);
+    }, [navigate, sourceId]);
 
     return source ? (
         <section>
@@ -42,6 +42,20 @@ export default function Detail() {
                         <iframe
                             key={update.key}
                             src={source.url}
+                            title={source.location}
+                            className="aspect-video w-full"
+                        />
+                    ) : source.type === "video" ? (
+                        <video
+                            key={update.key}
+                            src={source.url}
+                            className="aspect-video w-full"
+                            autoPlay
+                            muted
+                        />
+                    ) : source.type === "stream" ? (
+                        <FlowPlayer
+                            url={source.url}
                             className="aspect-video w-full"
                         />
                     ) : source.type === "image" ? (
@@ -60,4 +74,4 @@ export default function Detail() {
             </p>
         </section>
     ) : null;
-}
+};

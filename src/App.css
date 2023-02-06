@@ -7,3 +7,8 @@ body {
     color: #a8b2d1;
     line-height: 1.75rem;
 }
+
+.fp-ratio,
+.fp-ui {
+    display: none;
+}
