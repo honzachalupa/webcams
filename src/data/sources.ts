@@ -65,26 +65,19 @@ export const sources: ISource[] = [
     {
         id: 9,
         location: "Hlavní nádraží",
-        url: "https://vwrjffrka3.gjirafa.net/live/motZvUmyIk9PCPXEf5gwAB1GmIlQTn6b/t0g0qq720/index.m3u8",
-        type: "stream",
+        url: "https://vwrjffrka3.gjirafa.net/live/motZvUmyIk9PCPXEf5gwAB1GmIlQTn6b/t0g0qq-retina.jpg",
+        type: "image",
     },
     {
         id: 10,
         location: "Letiště Václava Havla",
-        url: "https://vwrjffrka3.gjirafa.net/live/V5VHPPcRRtIuWFdnDuwjefzSqTKyBrW3/t0110x720/index.m3u8",
-        type: "stream",
+        url: "https://vwrjffrka3.gjirafa.net/live/V5VHPPcRRtIuWFdnDuwjefzSqTKyBrW3/t0110x-retina.jpg",
+        type: "image",
     },
     {
         id: 11,
         location: "Letiště Václava Havla",
-        url: "https://vwrjffrka3.gjirafa.net/live/motZvUmyIk9PCPXEf5gwAB1GmIlQTn6b/t0g0gg720/index.m3u8",
-        type: "stream",
-    },
-    {
-        id: 12,
-        location: "Zoo",
-        view: "výběh slonů",
-        url: "https://w101.quickmedia.tv/Zoo-Sloni/_definst_/Zoo-Sloni-MP4_432p-7/Playlist.m3u8?id=yNlLhjJYYVE5hm-03",
-        type: "stream",
+        url: "https://vwrjffrka3.gjirafa.net/live/motZvUmyIk9PCPXEf5gwAB1GmIlQTn6b/t0g0gg-retina.jpg",
+        type: "image",
     },
 ];
