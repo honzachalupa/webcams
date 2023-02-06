@@ -23,7 +23,11 @@ export const FlowPlayer: React.FC<IProps> = ({ url, className }) => {
 
     return (
         <div className={cx(className, "[&>*>video]:w-full")}>
-            <Flow ref={ref} src={url} />
+            <Flow
+                ref={ref}
+                src={url}
+                token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIyMDIzLTAyLTA3VDIxOjE3OjUxIiwiaXAiOiI5MS4xMzkuMTE0LjIwMyIsInVpZCI6MH0.j4MejJxUP-MEKEOocmqTkylLZsFKOyqXjzpRERFwbkQ"
+            />
         </div>
     );
 };
