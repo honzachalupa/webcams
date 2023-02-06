@@ -1,4 +1,5 @@
 import cx from "classnames";
+import { useState } from "react";
 // @ts-ignore
 import { config } from "../../config";
 import { ISource, sources } from "../data/sources";
@@ -12,26 +13,42 @@ const Source: React.FC<ISource> = ({
     type,
     isFeatured,
 }) => {
+    const [isFullscreen, setIsFullscreen] = useState<boolean>();
+
     return (
         <article
-            className={cx({
+            className={cx("cursor-pointer", {
                 "basis-full": isFeatured,
                 "basis-[calc(50%-10px)]": !isFeatured,
+                "fixed top-0 left-0 flex h-screen w-screen items-center bg-black":
+                    isFullscreen,
             })}
+            onClick={() => setIsFullscreen(true)}
         >
-            <p>
-                {location} {view && <span>({view})</span>}
-            </p>
+            <div>
+                <p className="m-2 text-xs">
+                    {location} {view && <span>({view})</span>}
+                </p>
 
-            {type === "iframe" ? (
-                <iframe src={url} className="aspect-video w-full" />
-            ) : type === "image" ? (
-                <img
-                    src={url}
-                    alt={location}
-                    className="aspect-video w-full object-cover"
-                />
-            ) : null}
+                {type === "iframe" ? (
+                    <iframe src={url} className="aspect-video w-full" />
+                ) : type === "image" ? (
+                    <img
+                        src={url}
+                        alt={location}
+                        className="aspect-video w-full object-cover"
+                    />
+                ) : null}
+
+                {isFullscreen && (
+                    <button
+                        className="bg-gray-500"
+                        onClick={() => setIsFullscreen(false)}
+                    >
+                        Kliknutím zavřete
+                    </button>
+                )}
+            </div>
         </article>
     );
 };
