@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import { DetailPage } from "./pages/Detail";
 import { IndexPage } from "./pages/Index";
-import { DetailPage } from "./pages/Temp";
 
 export const App: React.FC = () => (
     <BrowserRouter>
