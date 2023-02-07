@@ -1,11 +1,10 @@
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { InferGetServerSidePropsType } from "next";
-import Head from "next/head";
 import { NextRouter, useRouter } from "next/router";
-import { config } from "../../config";
 import { SourceActions } from "../actions/sources";
 import { SourceMedia } from "../components/SourceMedia";
 import { UpdateTimestamp } from "../components/UpdateTimestamp";
+import { Layout } from "../layouts/Main";
 import { ISource } from "../types/source";
 
 export default function Detail({
@@ -20,13 +19,7 @@ export default function Detail({
     };
 
     return (
-        <>
-            <Head>
-                <title>
-                    {source.location} | {config.appName}
-                </title>
-            </Head>
-
+        <Layout title={source.location}>
             <button onClick={handleGoBack} className="m-2 flex items-center">
                 <ChevronLeftIcon className="h-5" />
                 <span>Zpět</span>
@@ -42,7 +35,7 @@ export default function Detail({
             </section>
 
             <UpdateTimestamp />
-        </>
+        </Layout>
     );
 }
 

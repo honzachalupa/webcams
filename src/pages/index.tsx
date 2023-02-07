@@ -1,11 +1,11 @@
 import cx from "classnames";
 import { InferGetServerSidePropsType } from "next";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import { config } from "../../config";
 import { SourceActions } from "../actions/sources";
 import { SourceMedia } from "../components/SourceMedia";
 import { UpdateTimestamp } from "../components/UpdateTimestamp";
+import { Layout } from "../layouts/Main";
 
 export default function Index({
     sources,
@@ -13,11 +13,7 @@ export default function Index({
     const router = useRouter();
 
     return (
-        <>
-            <Head>
-                <title>{config.appName}</title>
-            </Head>
-
+        <Layout>
             <h1 className="hidden">{config.appName}</h1>
 
             <section className="m-3 flex flex-wrap gap-[10px]">
@@ -58,7 +54,7 @@ export default function Index({
             </section>
 
             <UpdateTimestamp />
-        </>
+        </Layout>
     );
 }
 
