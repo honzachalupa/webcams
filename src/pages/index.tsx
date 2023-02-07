@@ -77,7 +77,7 @@ export default function Index({
                 ))}
 
                 <p className="m-[5px] w-full text-center text-xs">
-                    Aktualizováno: {update.timestamp?.format("H:mm:ss")}
+                    Aktualizováno: {update.timestamp?.format("H:mm")}
                 </p>
             </section>
         </>

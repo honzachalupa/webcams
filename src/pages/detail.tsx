@@ -47,7 +47,7 @@ export default function Detail({
             </article>
 
             <p className="m-5 w-full text-center text-xs">
-                Aktualizováno: {update.timestamp?.format("H:mm:ss")}
+                Aktualizováno: {update.timestamp?.format("H:mm")}
             </p>
         </section>
     ) : null;
