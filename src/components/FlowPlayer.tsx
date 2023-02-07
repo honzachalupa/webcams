@@ -4,7 +4,7 @@ import HLSPlugin from "@flowplayer/player/plugins/hls";
 // @ts-ignore
 import { default as Player, useFlowplayer } from "@flowplayer/react-flowplayer";
 import { useEffect, useRef } from "react";
-import { ISource } from "../data/sources";
+import { ISource } from "../types/source";
 
 flowplayer(HLSPlugin);
 
