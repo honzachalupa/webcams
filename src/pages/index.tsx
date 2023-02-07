@@ -1,8 +1,10 @@
 import cx from "classnames";
+import { InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
 import { config } from "../../config";
-import { ISource, sources } from "../data/sources";
+import { SourceActions } from "../actions/sources";
 import { useSourcesUpdate } from "../hooks/useSourcesUpdate";
+import { ISource } from "../types/source";
 
 const Source: React.FC<ISource> = (source) => {
     const router = useRouter();
@@ -60,7 +62,9 @@ const Source: React.FC<ISource> = (source) => {
     );
 };
 
-export default function Index() {
+export default function Index({
+    sources,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const update = useSourcesUpdate();
 
     return (
@@ -79,3 +83,9 @@ export default function Index() {
         </>
     );
 }
+
+export const getServerSideProps = async () => ({
+    props: {
+        sources: await SourceActions.find(),
+    },
+});

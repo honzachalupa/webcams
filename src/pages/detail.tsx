@@ -1,29 +1,20 @@
+import { InferGetServerSidePropsType } from "next";
 import { NextRouter, useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { ISource, sources } from "../data/sources";
+import { SourceActions } from "../actions/sources";
 import { useSourcesUpdate } from "../hooks/useSourcesUpdate";
+import { ISource } from "../types/source";
 
-export default function Detail() {
-    const router = useRouter() as NextRouter & { query: { sourceId: string } };
+export default function Detail({
+    source,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+    const router = useRouter() as NextRouter & {
+        query: { sourceId: ISource["id"] };
+    };
     const update = useSourcesUpdate();
-
-    const [source, setSource] = useState<ISource>();
 
     const handleGoBack = () => {
         router.push("/");
     };
-
-    useEffect(() => {
-        const source = sources.find(
-            ({ id }) => id === Number(router.query.sourceId)
-        );
-
-        if (!source) {
-            router.replace("/");
-        }
-
-        setSource(source);
-    }, [router]);
 
     return source ? (
         <section>
@@ -61,3 +52,13 @@ export default function Detail() {
         </section>
     ) : null;
 }
+
+export const getServerSideProps = async ({
+    query,
+}: {
+    query: { sourceId: ISource["id"] };
+}) => ({
+    props: {
+        source: await SourceActions.findOne({ id: query.sourceId }),
+    },
+});
