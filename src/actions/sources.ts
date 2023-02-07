@@ -3,7 +3,7 @@ import { ObjectId } from "mongodb";
 import { ISource } from "../types/source";
 import { sourcesCollection } from "../utils/mongodb";
 
-const fillUrlTimestamp = (url: string) =>
+const fillUrlTimestamp = (url: ISource["url"]) =>
     url.replace(/{timestamp}/g, moment().format("YYYYMMDDHHmmss"));
 
 const find = () =>

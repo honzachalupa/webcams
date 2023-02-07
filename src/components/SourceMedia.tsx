@@ -3,24 +3,25 @@ import { useSourcesUpdate } from "../hooks/useSourcesUpdate";
 import { ISource } from "../types/source";
 
 interface IProps {
-    source: ISource;
+    url: ISource["url"];
+    type: ISource["type"];
     className?: string;
 }
 
-export const SourceMedia: React.FC<IProps> = ({ source, className }) => {
+export const SourceMedia: React.FC<IProps> = ({ url, type, className }) => {
     const update = useSourcesUpdate();
 
     const sharedProps = {
         key: update.key,
-        src: source.url,
+        src: url,
         className: cx("aspect-video w-full object-cover", className),
     };
 
-    return source.type === "iframe" ? (
+    return type === "iframe" ? (
         <iframe {...sharedProps} />
-    ) : source.type === "video" ? (
+    ) : type === "video" ? (
         <video {...sharedProps} autoPlay muted />
-    ) : source.type === "image" ? (
+    ) : type === "image" ? (
         <img {...sharedProps} alt="Webovou kameru se nepodařilo načíst" />
     ) : null;
 };

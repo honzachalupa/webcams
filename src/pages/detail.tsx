@@ -2,6 +2,7 @@ import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { InferGetServerSidePropsType } from "next";
 import Head from "next/head";
 import { NextRouter, useRouter } from "next/router";
+import { config } from "../../config";
 import { SourceActions } from "../actions/sources";
 import { SourceMedia } from "../components/SourceMedia";
 import { UpdateTimestamp } from "../components/UpdateTimestamp";
@@ -21,7 +22,9 @@ export default function Detail({
     return (
         <>
             <Head>
-                <title>{source.location} | Webové kamery</title>
+                <title>
+                    {source.location} | {config.appName}
+                </title>
             </Head>
 
             <button onClick={handleGoBack} className="m-2 flex items-center">
@@ -29,15 +32,13 @@ export default function Detail({
                 <span>Zpět</span>
             </button>
 
-            <section>
-                <div>
-                    <p className="m-2 text-xs">
-                        {source.location}{" "}
-                        {source.view && <span>({source.view})</span>}
-                    </p>
+            <section className="mt-5">
+                <SourceMedia url={source.url} type={source.type} />
 
-                    <SourceMedia source={source} />
-                </div>
+                <ul className="m-2 text-center text-xs">
+                    <li>Lokalita: {source.location}</li>
+                    {source.view && <li>Pohled: {source.view}</li>}
+                </ul>
             </section>
 
             <UpdateTimestamp />
