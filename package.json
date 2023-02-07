@@ -13,7 +13,6 @@
         "@flowplayer/react-flowplayer": "^1.2.0",
         "@heroicons/react": "^2.0.14",
         "@honzachalupa/utils": "^1.45.5",
-        "@styled-icons/boxicons-logos": "^10.47.0",
         "@tanstack/react-query": "^4.24.4",
         "browser-env": "^3.3.0",
         "classnames": "^2.3.2",

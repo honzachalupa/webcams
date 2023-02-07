@@ -1,14 +1,16 @@
 import cx from "classnames";
 import { InferGetServerSidePropsType } from "next";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { config } from "../../config";
 import { SourceActions } from "../actions/sources";
+import { SourceMedia } from "../components/SourceMedia";
+import { UpdateTimestamp } from "../components/UpdateTimestamp";
 import { useSourcesUpdate } from "../hooks/useSourcesUpdate";
 import { ISource } from "../types/source";
 
 const Source: React.FC<ISource> = (source) => {
     const router = useRouter();
-    const update = useSourcesUpdate();
 
     return (
         <article
@@ -24,39 +26,21 @@ const Source: React.FC<ISource> = (source) => {
             }
         >
             <div className="flex h-full flex-col justify-between">
-                <p className="my-1 text-xs">
+                <p
+                    className={cx("my-1 text-xs", {
+                        "mx-2": source.isFeatured,
+                    })}
+                >
                     {source.location}{" "}
                     {source.view && <span>({source.view})</span>}
                 </p>
 
-                {source.type === "iframe" ? (
-                    <iframe
-                        key={update.key}
-                        src={source.url}
-                        className={cx("aspect-video w-full", {
-                            "rounded-sm": !source.isFeatured,
-                        })}
-                    />
-                ) : source.type === "video" ? (
-                    <video
-                        key={update.key}
-                        src={source.url}
-                        className={cx("aspect-video w-full", {
-                            "rounded-sm": !source.isFeatured,
-                        })}
-                        autoPlay
-                        muted
-                    />
-                ) : source.type === "image" ? (
-                    <img
-                        key={update.key}
-                        src={source.url}
-                        alt="Webovou kameru se nepodařilo načíst"
-                        className={cx("aspect-video w-full object-cover", {
-                            "rounded-sm": !source.isFeatured,
-                        })}
-                    />
-                ) : null}
+                <SourceMedia
+                    source={source}
+                    className={cx({
+                        "rounded-md": !source.isFeatured,
+                    })}
+                />
             </div>
         </article>
     );
@@ -69,17 +53,19 @@ export default function Index({
 
     return (
         <>
+            <Head>
+                <title>Webové kamery</title>
+            </Head>
+
             <h1 className="hidden">{config.appName}</h1>
 
             <section className="m-3 flex flex-wrap gap-[10px]">
                 {sources.map((source) => (
                     <Source key={source.id} {...source} />
                 ))}
-
-                <p className="m-[5px] w-full text-center text-xs">
-                    Aktualizováno: {update.timestamp?.format("H:mm")}
-                </p>
             </section>
+
+            <UpdateTimestamp />
         </>
     );
 }

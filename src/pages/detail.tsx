@@ -1,7 +1,10 @@
+import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { InferGetServerSidePropsType } from "next";
+import Head from "next/head";
 import { NextRouter, useRouter } from "next/router";
 import { SourceActions } from "../actions/sources";
-import { useSourcesUpdate } from "../hooks/useSourcesUpdate";
+import { SourceMedia } from "../components/SourceMedia";
+import { UpdateTimestamp } from "../components/UpdateTimestamp";
 import { ISource } from "../types/source";
 
 export default function Detail({
@@ -10,47 +13,36 @@ export default function Detail({
     const router = useRouter() as NextRouter & {
         query: { sourceId: ISource["id"] };
     };
-    const update = useSourcesUpdate();
 
     const handleGoBack = () => {
         router.push("/");
     };
 
-    return source ? (
-        <section>
-            <h1 className="hidden">{source.location}</h1>
+    return (
+        <>
+            <Head>
+                <title>{source.location} | Webové kamery</title>
+            </Head>
 
-            <button onClick={handleGoBack}>Zpět</button>
+            <button onClick={handleGoBack} className="m-2 flex items-center">
+                <ChevronLeftIcon className="h-5" />
+                <span>Zpět</span>
+            </button>
 
-            <article>
+            <section>
                 <div>
                     <p className="m-2 text-xs">
                         {source.location}{" "}
                         {source.view && <span>({source.view})</span>}
                     </p>
 
-                    {source.type === "iframe" ? (
-                        <iframe
-                            key={update.key}
-                            src={source.url}
-                            className="aspect-video w-full"
-                        />
-                    ) : source.type === "image" ? (
-                        <img
-                            key={update.key}
-                            src={source.url}
-                            alt={source.location}
-                            className="aspect-video w-full object-cover"
-                        />
-                    ) : null}
+                    <SourceMedia source={source} />
                 </div>
-            </article>
+            </section>
 
-            <p className="m-5 w-full text-center text-xs">
-                Aktualizováno: {update.timestamp?.format("H:mm")}
-            </p>
-        </section>
-    ) : null;
+            <UpdateTimestamp />
+        </>
+    );
 }
 
 export const getServerSideProps = async ({
